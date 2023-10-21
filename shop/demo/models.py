@@ -56,3 +56,38 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'Новый'),
+        ('confirmed', 'Подтвержденный'),
+        ('canceled', 'Отмененный')
+    ]
+    date = models.DateTimeField(verbose_name='Дата заказа', auto_now_add=True)
+    status = models.CharField(max_length=254, verbose_name='Статус',
+                              choices=STATUS_CHOICES,
+                              default='new')
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    rejection_reason = models.TextField(verbose_name='Причина отказа', blank=True)
+    products = models.ManyToManyField(Product, through='ItemInOrder', related_name='orders')
+
+    def __str__(self):
+        return self.date.ctime() + ' | ' + self.user.full_name()
+
+
+class ItemInOrder(models.Model):
+    order = models.ForeignKey(Order, verbose_name='Заказ', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    count = models.IntegerField(verbose_name='Количество', blank=False, default=0)
+    price = models.DecimalField(verbose_name='Стоимость', max_digits=10, decimal_places=2, blank=False,
+                                default=0.00)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    count = models.IntegerField(verbose_name='Количество', blank=False, default=0)
+
+    def __str__(self):
+        return self.product.name + ' - ' + str(self.count)
