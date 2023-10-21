@@ -2,6 +2,12 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
+
+def validate_pasword_len(password):
+    if len(password) < 6:
+        raise ValidationError('Длина пароля не может быть меньше 6 символов')
+    
+
 class RegisterUserForm(forms.ModelForm):
     username = forms.CharField(label='Логин',
                                validators=[RegexValidator('^[a-zA-Z0-9-]+$',
