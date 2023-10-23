@@ -1,9 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views import generic
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterUserForm
+from .models import Order
 
 
 # Create your views here.
@@ -43,6 +46,9 @@ def checkout(request):
     pass
 
 
-@login_required
-def orders(request):
-    pass
+class OrderListView(LoginRequiredMixin, generic.ListView):
+    model = Order
+    template_name = 'demo/orders.html'
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by('-date')
