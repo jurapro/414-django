@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Каталог</h1>
+       {% for item in products %}
+        <div class="d-flex">
+            <img src="{{ item.photo_file.url }}" alt="{{ item.photo_file }}" class="img-thumbnail" width="200">
+            <div class="p-2">
+                <h3><a href="">{{ item.name }}</a> {{ item.price }} р.</h3>
+                <div>
+                    Год производства: {{ item.year }} / Категория: {{ item.category }} / Остаток: {{ item.count }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

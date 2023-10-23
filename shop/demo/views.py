@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterUserForm
-from .models import Order
+from .models import Order, Product
 
 
 # Create your views here.
@@ -25,7 +25,11 @@ def contact(request):
 
 
 def catalog(request):
-    pass
+    products = Product.objects.filter(count__gte=1)
+    return render(request, 'demo/catalog.html',
+                  context={
+                      'products': products
+                  })
 
 
 def product(request):
