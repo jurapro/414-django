@@ -16,4 +16,6 @@ urlpatterns = [
     path('cart', cart, name='cart'),
     path('checkout', checkout, name='checkout'),
     path('orders', OrderListView.as_view(), name='orders'),
+
+    path('to_cart/<pk>', to_cart, name='to_cart')
 ]
