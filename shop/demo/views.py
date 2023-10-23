@@ -31,7 +31,11 @@ def product(request):
 
 @login_required
 def cart(request):
-    pass
+    cart_items = request.user.cart_set.all()
+    return render(request, 'demo/cart.html',
+                  context={
+                      'cart_items': cart_items
+                  })
 
 
 @login_required

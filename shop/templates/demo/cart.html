@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Корзина</h1>
+
+{% if cart_items %}
+<ul>
+    {% for item in cart_items %}
+    <li>
+        {{ item.product.name }} - <span>{{ item.count }}</span>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Корзина пуста</p>
+{% endif %}
+{% endblock %}
