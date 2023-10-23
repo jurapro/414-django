@@ -15,32 +15,32 @@
         {% block sidebar %}
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">Каталог</a>
+                    <a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">О нас</a>
+                    <a class="nav-link" href="{% url 'about' %}">О нас</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Где нас найти?</a>
+                    <a class="nav-link" href="{% url 'contact' %}">Где нас найти?</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="">Корзина</a>
+                        <a class="nav-link" href="{% url 'cart' %}">Корзина</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Мои заказы</a>
+                        <a class="nav-link" href="{% url 'orders' %}">Мои заказы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Выйти ({{ user.username }})</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти ({{ user.username }})</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="">Войти</a>
+                        <a class="nav-link" href="{% url 'login' %}">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Регистрация</a>
+                        <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
                     </li>
                 {% endif %}
             </ul>
